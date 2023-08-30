@@ -1,0 +1,24 @@
+.notFound__wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.notFound-title {
+	margin-bottom: 50px;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 100%;
+	color: brown;
+}
+.notFound-link { 
+	text-decoration: none;
+	padding: 10px 20px;
+	border: 1px solid brown;
+	border-radius: 10px;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 100%;
+	color: brown;
+	cursor: pointer;
+}

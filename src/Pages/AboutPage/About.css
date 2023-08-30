@@ -1,0 +1,17 @@
+.about__wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.about-title {
+	margin-bottom: 50px;
+	font-weight: 700;
+	font-size: 30px;
+	line-height: 100%;
+}
+.about-descr {
+	font-size: 22px;
+	line-height: 100%;
+}
