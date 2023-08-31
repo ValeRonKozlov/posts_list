@@ -6,3 +6,7 @@
 	border: 1px solid teal;
 	cursor: pointer;
 }
+
+.myBtn:not(:last-child) {
+	margin: 0 10px;
+}
