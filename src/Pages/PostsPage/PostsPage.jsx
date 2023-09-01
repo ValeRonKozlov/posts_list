@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import './PostPage.css';
 import PostList from "../../components/PostList";
 import PostForm from "../../components/PostForm";
@@ -10,7 +10,9 @@ import PostService from "../../API/PostService";
 import Loader from "../../components/UI/Loader/Loader";
 import { useFetching } from "../../hooks/useFetching.js";
 import { getPageCount } from "../../utils/pages.js";
-import MyPagination from "../../components/UI/Pagination/MyPagination";
+// import MyPagination from "../../components/UI/Pagination/MyPagination";
+import MySelect from "../../components/UI/Select/MySelect";
+import { useObserver } from "../../hooks/useObserver";
 
 function PostsPage() {
   const [posts, setPosts] = useState([])
@@ -33,50 +35,57 @@ function PostsPage() {
   const [limit, setLimit] = useState(10)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const changePage = (currentPage) => {
-    setCurrentPage(currentPage)
-    fetchPosts(limit, currentPage)
-  }
+  // const changePage = (currentPage) => {
+  //   setCurrentPage(currentPage)
+  //   fetchPosts(limit, currentPage)
+  // }
   
   // Api methods
     const [fetchPosts, isPostLoading, postError] = useFetching(async (limit, currentPage) => {
       const responce = await PostService.getAll(limit, currentPage);
-      setPosts(responce.data);
+      setPosts([...posts, ...responce.data]);
       const totalCount = responce.headers['x-total-count'];
       setTotalPages(getPageCount(totalCount, limit));
     })
     
   useEffect(() => {
     fetchPosts(limit, currentPage);
-  }, []);
+  }, [currentPage, limit]);
+
+   // динамическая загрузка "бесконечная лента"
+    const lastElement = useRef()
+    useObserver(lastElement, currentPage < totalPages, isPostLoading, () => {
+      setCurrentPage(currentPage + 1)
+    }) 
 
 
   return (
     <div className="app">
-      <MyButton 
-        style={{marginTop: 30}}
-        onClick={() => setModal(true)}
-      >
-        Add New Post
-      </MyButton>
-      <MyModal 
-        visible={modal}
-        setVisible={setModal}  
-      >
+      <MyButton onClick={() => setModal(true)}>Add New Post</MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost}/>
       </MyModal>
       <hr style={{margin: 15}}/>
-      <PostFilter
-        filter={filter}
-        setFilter={setFilter}
+      <PostFilter filter={filter} setFilter={setFilter}/>
+      {/* смена колличества отображаемых постов */}
+      <MySelect value={limit} 
+        onChange={value => setLimit(value)} 
+        defaultValue='Posts Limit'
+        options={[
+          {value: 5 , name: '5'},
+          {value: 10 , name: '10'},
+          {value: 25 , name: '25'},
+          {value: -1 , name: 'Show All'},
+        ]}
       />
       {/* обработка ошибки  */}
       {postError && <h1 style={{color:'red', display: 'flex', justifyContent: 'center'}}>{postError}</h1>}
-      {isPostLoading 
-      ? <div style={{display: "flex", justifyContent: 'center'}}><Loader/></div>
-      : <PostList posts={sortedAndSerchedPosts} remove={removePost} title='Post List 1'/>
+      <PostList posts={sortedAndSerchedPosts} remove={removePost} title='Post List 1'/>
+      <div ref={lastElement}></div>
+      {isPostLoading &&
+        <div style={{display: "flex", justifyContent: 'center'}}><Loader/></div>
       }
-      <MyPagination currentPage={currentPage} changePage={changePage} totalPages={totalPages}/>
+      {/* <MyPagination currentPage={currentPage} changePage={changePage} totalPages={totalPages}/> */}
     </div>
   );
 }

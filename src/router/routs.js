@@ -6,7 +6,6 @@ import PostIdPage from "../Pages/PostIdPage/PostIdPage"
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage"
 // массив авторизованных маршрутов
 export const privateRouts = [
-	{path: '/autorization', component: <AutorizationPage/>},
 	{path: '/about', component: <AboutPage/>},
 	{path: '/posts', component: <PostsPage/>},
 	{path: '/posts/:id', component: <PostIdPage/>},
@@ -14,5 +13,6 @@ export const privateRouts = [
 ]
 // массив публичных маршрутов
 export const publicRouts = [
-	{path: '/autorization', component: <AutorizationPage/>},
+	{path: '/', component: <AutorizationPage/>},
+	{path: '*', component: <NotFoundPage/>},
 ]

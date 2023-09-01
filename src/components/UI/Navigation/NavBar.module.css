@@ -1,8 +1,8 @@
 .myNavigation {
 	display: flex;
-	justify-content: center;
+	justify-content: flex-end;
 	align-items: center;
-	margin: 20px;
+	margin: 20px 0;
 }
 .myNavigation__link {
 	margin-right: 25px;
@@ -10,5 +10,9 @@
 	font-weight: 600;
 	font-size: 20px;
 	line-height: 100%;
+	color: teal;
+}
+.myNavigation__link__logout {
+	text-decoration: none;
 	color: teal;
 }

@@ -4,6 +4,7 @@
 	background-color: transparent;
 	color: teal;
 	border: 1px solid teal;
+	border-radius: 5px;
 	cursor: pointer;
 }
 
