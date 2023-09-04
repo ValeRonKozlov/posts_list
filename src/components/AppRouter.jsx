@@ -13,13 +13,13 @@ const AppRouter = () => {
 				{privateRouts.map(rout => (
 					<Route path={rout.path} element={rout.component} key={rout.path} />
 				))}
-				<Route path="/" element={<Navigate to='/posts'/>} />
+				<Route path="/login" element={<Navigate to='/posts'/>} />
 			</Routes>
 		: <Routes>
 				{publicRouts.map(rout => (
 					<Route path={rout.path} element={rout.component} key={rout.path} />
 				))}
-				<Route path="/" element={<Navigate to='/'/>} />
+				<Route path="/posts_list" element={<Navigate to='/login'/>} />
 			</Routes>
 	);
 }

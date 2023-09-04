@@ -15,7 +15,7 @@ const NavBar = () => {
 		<div className={classes.myNavigation}>
 			<Link to="/about" className={classes.myNavigation__link}> About Us</Link>
 			<Link to='/posts' className={classes.myNavigation__link}> Posts Page</Link>
-			<MyButton onClick={logout}><Link to='/' className={classes.myNavigation__link__logout}>Exit</Link></MyButton>
+			<MyButton onClick={logout}><Link to='/login' className={classes.myNavigation__link__logout}>Exit</Link></MyButton>
 		</div>
 	);
 };

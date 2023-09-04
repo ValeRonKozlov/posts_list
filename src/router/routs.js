@@ -13,6 +13,6 @@ export const privateRouts = [
 ]
 // массив публичных маршрутов
 export const publicRouts = [
-	{path: '/', component: <AutorizationPage/>},
+	{path: '/login', component: <AutorizationPage/>},
 	{path: '*', component: <NotFoundPage/>},
 ]

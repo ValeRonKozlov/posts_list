@@ -6,7 +6,7 @@ const NotFoundPage = () => {
 	return (
 		<div className='notFound__wrapper'>
 			<h1 className='notFound-title'>Page Not Found</h1>
-				<Link className='notFound-link' to='/'>Back</Link>
+				<Link className='notFound-link' to='/login'>Back</Link>
 		</div>
 	);
 };
