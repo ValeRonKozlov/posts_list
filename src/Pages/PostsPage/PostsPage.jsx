@@ -58,6 +58,24 @@ function PostsPage() {
       setCurrentPage(currentPage + 1)
     }) 
 
+    // Возврат вверх
+    const [scrollTop, setScrollTop] = useState(false)
+
+    useEffect(() => {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+          setScrollTop(true)
+        } else {
+          setScrollTop(false)
+        }
+      })
+    }, [])
+    const bottomToTop = () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      })
+    }
 
   return (
     <div className="app">
@@ -84,6 +102,11 @@ function PostsPage() {
       <div ref={lastElement}></div>
       {isPostLoading &&
         <div style={{display: "flex", justifyContent: 'center'}}><Loader/></div>
+      }
+      {scrollTop && 
+        <div className="scroll__wrapper">
+          <MyButton onClick={bottomToTop}>Top</MyButton>
+        </div>
       }
       {/* <MyPagination currentPage={currentPage} changePage={changePage} totalPages={totalPages}/> */}
     </div>

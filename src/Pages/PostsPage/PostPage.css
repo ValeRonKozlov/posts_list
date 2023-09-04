@@ -45,3 +45,12 @@
 	background-color: teal;
 	color: #fff;
 }
+
+.scroll__wrapper {
+	width: 1024px;
+	display: flex;
+	justify-content: flex-end;
+	position: sticky;
+	bottom: 25px;
+	right: -200px;
+}
